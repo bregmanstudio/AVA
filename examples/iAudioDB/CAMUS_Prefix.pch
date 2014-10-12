@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'CAMUS' target in the 'CAMUS' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE owl [
+  <!ENTITY xsd          "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY rdf          "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs         "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY owl          "http://www.w3.org/2002/07/owl#">
+  <!ENTITY base         "http://omras2.gold.ac.uk/ontology/audiodb#">
+  <!ENTITY dc           "http://purl.org/dc/elements/1.1/">
+  <!ENTITY dct          "http://purl.org/dc/terms/">
+  <!ENTITY off		"http://purl.org/ontology/off/">
+  <!ENTITY foaf		"http://xmlns.com/foaf/0.1/">
+  <!ENTITY doap		"http://usefulinc.com/ns/doap#">
+  <!ENTITY mo		"http://purl.org/ontology/mo/">  	
+]>
+
+<rdf:RDF xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:owl="&owl;"
+         xmlns:xsd="&xsd;"
+         xml:base="&base;"
+         xmlns:dc="&dc;"
+	 xmlns:dct="&dct;"
+	 xmlns:foaf="&foaf;"
+	 xmlns:off="&off;"
+	 xmlns:mo="&mo;">
+
+  <owl:Ontology rdf:about="&base;">
+    <rdfs:label>AudioDB Ontology</rdfs:label>
+    <dc:title xml:lang="en">AudioDB Ontology</dc:title>
+    <dc:description xml:lang="en">Describes the contents of an AudioDB instance</dc:description>
+    <dc:creator>Michael O. Jewell (mailto:mas01mj@gold.ac.uk)</dc:creator>
+    <dct:created>2009-10-07</dct:created>
+    <owl:versionInfo>0.1</owl:versionInfo>
+  </owl:Ontology>
+
+  <owl:Class rdf:ID="Database">
+    <rdfs:label>AudioDB</rdfs:label>
+    <rdfs:comment>Represents a collection of extracted features and information about their extraction.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="&foaf;Document" />
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:ID="has-signal">
+	  <rdf:label>Has Feature</rdfs:label>
+	  <rdfs:domain rdf:resource="#Database" />
+	  <rdfs:range rdf:resource="&mo;Signal" />
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:ID="feature">
+    <rdfs:label>Feature</rdfs:label>
+    <rdfs:domain rdf:resource="#Database"/>
+    <rdfs:range rdf:resource="#Feature" />
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:ID="Feature">
+    <rdfs:label>Feature</rdfs:label>
+    <rdfs:comment>Information about an audio feature</rdfs:comment>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:ID="extractor">
+    <rdfs:label>Extractor</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:domain rdf:resource="&doap;Version"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:ID="window">
+    <rdfs:label>Window</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="#Window"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:ID="hop-size">
+    <rdfs:label>Hop Size</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;integer" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="window-length">
+    <rdfs:label>Window Length</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;integer" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="nfft">
+    <rdfs:label>nfft</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;integer" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="segn">
+    <rdfs:label>segn</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;integer" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="channel">
+    <rdfs:label>channel</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;integer" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="dimension">
+    <rdfs:label>dimension</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;integer" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="loedge">
+    <rdfs:label>loedge</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;double" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="hiedge">
+    <rdfs:label>hiedge</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;double" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="octaveres">
+    <rdfs:label>octaveres</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="&xsd;double" />
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="segmentation">
+    <rdfs:label>segmentation</rdfs:label>
+    <rdfs:domain rdf:resource="#Feature"/>
+    <rdfs:range rdf:resource="#Segmentation" />
+  </owl:ObjectProperty>
+  
+  <owl:Class rdf:ID="Segmentation">
+    <rdfs:label>Segmentation</rdfs:label>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="FrameSegmentation">
+    <rdfs:label>Frame Segmentation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Segmentation" />
+  </owl:Class>
+  
+  <owl:Class rdf:ID="BeatSegmentation">
+    <rdfs:label>Beat Segmentation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Segmentation" />
+  </owl:Class>
+  
+  <owl:Class rdf:ID="StructuralSegmentation">
+    <rdfs:label>Structural Segmentation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Segmentation" />
+  </owl:Class>
+
+  
+  <owl:Class rdf:ID="Window">
+    <rdfs:label>Window</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:ID="HammingWindow">
+    <rdfs:label>Hamming Window</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Window" />
+  </owl:Class>
+
+  <owl:Class rdf:ID="ChromagramFeature">
+    <rdfs:label>Chromogram Feature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Feature" />
+  </owl:Class>
+  
+  <owl:Class rdf:ID="MFCCFeature">
+    <rdfs:label>MFCC Feature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Feature" />
+  </owl:Class>
+  
+  <owl:Class rdf:ID="CQTFeature">
+    <rdfs:label>CQT Feature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Feature" />
+  </owl:Class>
+
+</rdf:RDF> 

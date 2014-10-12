@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="simpletest" basedir=".">
+
+	<property file="build.properties" />
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+
+	<target name="compile">
+		<mkdir dir="build" />
+		
+		<mxmlc file="${project.class}" target-player="10.0.0" output="build/${project.swf}" compiler.as3="${compiler.as3}" compiler.optimize="true" compiler.strict="${compiler.strict}" actionscript-file-encoding="${compiler.encoding}" keep-generated-actionscript="${compiler.keep-generated-as}" incremental="false" benchmark="${compiler.benchmark}" debug="true" use-network="${compiler.use-network}" warnings="${compiler.warnings}" fork="false">
+			<source-path path-element="${src.dir}" />
+			<compiler.include-libraries dir="../../lib" append="true">
+				<include name="as3bridge.swc" />
+			</compiler.include-libraries> 			 
+		</mxmlc>
+	</target>
+	
+	
+	<condition property="launch.executable" value="cmd" else="open">
+		<os family="windows" />
+	</condition>
+
+	<condition property="launch.argline" value="/c start " else="">
+		<os family="windows" />
+	</condition>
+	
+	<target name="launch">
+		<exec executable="${launch.executable}" dir="." spawn="true">
+			<arg line="${launch.argline}" />
+			<arg line="build/${project.swf}" />
+		</exec> 
+	</target>
+	
+	<target name="compile-and-launch" depends="compile,launch" />
+</project>

@@ -1,0 +1,21 @@
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix vamp:     <http://purl.org/ontology/vamp/> .
+@prefix :         <#> .
+
+:transform a vamp:Transform ;
+    vamp:plugin <http://vamp-plugins.org/rdf/plugins/vamp-audiodb-plugins#cq> ;
+    vamp:step_size "HOP_SIZE"^^xsd:int ; 
+    vamp:block_size "WINDOW_SIZE"^^xsd:int ; 
+    vamp:parameter_binding [
+        vamp:parameter [ vamp:identifier "bpo" ] ;
+        vamp:value "12"^^xsd:float ;
+    ] ;
+    vamp:parameter_binding [
+        vamp:parameter [ vamp:identifier "maxfreq" ] ;
+        vamp:value "1046.5"^^xsd:float ;
+    ] ;
+    vamp:parameter_binding [
+        vamp:parameter [ vamp:identifier "minfreq" ] ;
+        vamp:value "65.4064"^^xsd:float ;
+    ] ;
+    vamp:output <http://vamp-plugins.org/rdf/plugins/vamp-audiodb-plugins#cq_output_cq> .

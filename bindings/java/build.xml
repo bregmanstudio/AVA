@@ -1,0 +1,82 @@
+<project name="AudioDB" default="compile" basedir="." xmlns:cpptasks="antlib:net.sf.antcontrib.cpptasks">
+	<cpptasks:cc />
+	<cpptasks:compiler />
+	<cpptasks:linker />
+
+	<property name="src" location="src" />
+	<property name="ext" location="ext" />
+	<property name="gen" location="gen" />
+	<property name="test" location="test" />
+	<property name="build" location="build" />
+	
+	<path id="classpath.base">
+		<pathelement location="${build}" />
+	</path>
+
+	<path id="classpath.test">
+		<pathelement location="lib/junit.jar" />
+		<pathelement location="${test}" />
+		<path refid="classpath.base" />
+	</path>
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${build}" />
+		<mkdir dir="${gen}" />
+	</target>
+
+	<target name="clean" depends="init,clean-test">
+		<delete dir="${build}" />
+		<delete dir="${gen}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${build}"/>
+		<javah destdir="${gen}" force="yes" classpath="${build}">
+			<class name="org.omras2.AudioDB" />
+		</javah>
+		<cpptasks:cc link="shared" outtype="shared" objdir="${build}" outfile="${build}/AudioDB_JNI">
+			<compilerarg value="-shared" />
+			<compilerarg value="-fPIC" />
+			<compilerarg value="-g" />
+			<linker name="ld">
+				<linkerarg value="-fPIC" />
+				<linkerarg value="-G" />
+				<linkerarg value="-laudioDB" />
+				<linkerarg value="-lc" />
+				<linkerarg value="-o AudioDB_JNI.so" />
+			</linker>
+			<fileset dir="${ext}" includes="libAudioDB_JNI.c" />
+			<includepath>
+				<path path="${os.JAVA_HOME}/include" />
+				<path path="${os.JAVA_HOME}/include/linux/" />
+				<path path="/usr/local/include/" />
+				<path path="${gen}" />
+			</includepath>
+		</cpptasks:cc>
+	</target>
+
+
+	<target name="compile-test" depends="compile">
+		<javac srcdir="${test}">
+			<classpath refid="classpath.test"/>
+		</javac>
+	</target>
+	<target name="clean-test">
+		<delete>
+			<fileset dir="${test}" includes="**/*.class" />
+		</delete>
+	</target>
+
+	<target name="test" depends="compile-test">
+		<junit fork="yes">
+			<jvmarg value="-Djava.library.path=build" />
+			<classpath refid="classpath.test" />
+			<formatter type="brief" usefile="false" />
+			<test name="TestCreate" />
+			<test name="TestInsert" />
+			<test name="TestQuery" />
+		</junit>
+	</target>
+</project>
+

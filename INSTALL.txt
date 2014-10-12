@@ -1,0 +1,63 @@
+Dependencies
+------------
+
+gsoap: audioDB uses libgsoap++ for SOAP Web Services support.  This
+       can be installed on most linux distributions using the package
+       manager; the binary distribution will suffice.  Other systems
+       will need to install the library.
+
+gengetopt: audioDB uses gengetopt (as of 2007-10-23, version 2.18
+           exactly) for command-line parsing.
+
+help2man: a spartan manual page is automatically generated from the
+          usage text using help2man.
+
+bash: audioDB's test suite depends on /bin/sh being bash, version 3.0
+      or greater.
+
+gsl: the GNU Scientific Library.
+
+Compiling
+---------
+
+Use the following make commands to compile audioDB on your system:
+
+Linux:         make
+(Debian-derived systems, with the right versions of gengetopt, gsoap
+and help2man installed)
+
+OS X or Win32: make \
+  GENGETOPT=/path/to/bin/gengetopt \
+  SOAPCPP2=/path/to/bin/soapcpp2 \
+  GSOAP_CPP=/path/to/gsoap/stdsoap2.cpp \
+  GSOAP_INCLUDE="-I /path/to/gsoap" \
+  GSL_INCLUDE'"-I /path/to/gsl/"
+  LIBGSL="-L/path/to/libgsl/libraries -lgsl -lgslcblas"
+(where the path in GSOAP_INCLUDE should name the directory in which
+stdsoap2.h resides and the path to GSL_INCLUDE should name the directory
+which gsl_rng.h resides.)
+
+Testing
+-------
+
+audioDB comes with a suite of test scripts that verify that particular
+pieces of functionality are behaving acceptably.  They depend on
+/bin/sh being GNU bash, version 3 or greater.  The test suite can be
+run with the command "make test".
+
+When running on systems without sparse file support (notably those
+using the default filesystem in Mac OS X), running the test suite
+requires approximately 70GB of free hard disk space.  On other
+systems, disk usage from running the test suite is negligible.
+
+Installation
+------------
+
+The audioDB executable is command-line database client, SOAP server
+and SOAP client all in one: to install for system-wide use, simply
+copy it to a place in the system-wide path.
+
+The build process also generates a Web Service Description file,
+adb.wsdl; to publish a description of an audioDB web service, you will
+need to edit that file to point to the network address and port of
+your audioDB server before publishing it on an ordinary HTTP server.

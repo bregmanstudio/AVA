@@ -1,0 +1,23 @@
+#N canvas 671 210 536 428 10;
+#X obj 109 270 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 71 305 parameters;
+#X msg 45 119 set pdtest.adb \, querytype sequence \, features pdtest.chr12
+;
+#X floatatom 260 251 5 0 0 0 - - -;
+#X floatatom 314 253 5 0 0 0 - - -;
+#X floatatom 366 253 5 0 0 0 - - -;
+#X floatatom 420 259 5 0 0 0 - - -;
+#X floatatom 477 264 5 0 0 0 - - -;
+#X obj 303 336 adbpd pdtest.adb;
+#X msg 204 180 create 50 1000 12;
+#X connect 0 0 8 0;
+#X connect 1 0 8 0;
+#X connect 2 0 8 0;
+#X connect 3 0 8 1;
+#X connect 4 0 8 2;
+#X connect 5 0 8 3;
+#X connect 6 0 8 4;
+#X connect 7 0 8 5;
+#X connect 9 0 8 0;
+#X coords 0 0 1 1 85 60 0;

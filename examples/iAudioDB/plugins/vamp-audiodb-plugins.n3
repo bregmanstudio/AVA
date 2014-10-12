@@ -1,0 +1,222 @@
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix vamp:     <http://purl.org/ontology/vamp/> .
+@prefix plugbase: <http://vamp-plugins.org/rdf/plugins/vamp-audiodb-plugins#> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix dc:       <http://purl.org/dc/elements/1.1/> .
+@prefix af:       <http://purl.org/ontology/af/> .
+@prefix foaf:     <http://xmlns.com/foaf/0.1/> .
+@prefix cc:       <http://web.resource.org/cc/> .
+@prefix :         <#> .
+
+<>  a   vamp:PluginDescription ;
+    foaf:maker          <http://www.vamp-plugins.org/doap.rdf#template-generator> ;
+    foaf:primaryTopic   <http://vamp-plugins.org/rdf/plugins/vamp-audiodb-plugins> .
+
+:vamp-audiodb-plugins a  vamp:PluginLibrary ;
+    vamp:identifier "vamp-audiodb-plugins"  ; 
+    vamp:available_plugin plugbase:chromagram ; 
+    vamp:available_plugin plugbase:cq ; 
+    vamp:available_plugin plugbase:power ; 
+#   foaf:page <Place more-information HTML page URL here and uncomment> ;
+    .
+
+plugbase:chromagram a   vamp:Plugin ;
+    dc:title              "Chromagram" ;
+    vamp:name             "Chromagram" ;
+    dc:description        """""" ;
+    foaf:maker            [ foaf:name "" ] ; # FIXME could give plugin author's URI here
+    dc:rights             """""" ;
+#   cc:license            <Place plugin license URI here and uncomment> ; 
+    vamp:identifier       "chromagram" ;
+    vamp:vamp_API_version vamp:api_version_2 ;
+    owl:versionInfo       "1" ;
+    vamp:input_domain     vamp:FrequencyDomain ;
+
+
+    vamp:parameter   plugbase:chromagram_param_minfreq ;
+    vamp:parameter   plugbase:chromagram_param_maxfreq ;
+    vamp:parameter   plugbase:chromagram_param_bpo ;
+    vamp:parameter   plugbase:chromagram_param_summation ;
+
+    vamp:output      plugbase:chromagram_output_chroma ;
+    .
+plugbase:chromagram_param_minfreq a  vamp:Parameter ;
+    vamp:identifier     "minfreq" ;
+    dc:title            "Minimum frequency cut-off" ;
+    dc:format           "Hz" ;
+    vamp:min_value       0 ;
+    vamp:max_value       48000 ;
+    vamp:unit           "Hz"  ;
+    vamp:default_value   65.4064 ;
+    vamp:value_names     ();
+    .
+plugbase:chromagram_param_maxfreq a  vamp:Parameter ;
+    vamp:identifier     "maxfreq" ;
+    dc:title            "Maximum frequency cut-off" ;
+    dc:format           "Hz" ;
+    vamp:min_value       0 ;
+    vamp:max_value       48000 ;
+    vamp:unit           "Hz"  ;
+    vamp:default_value   1046.5 ;
+    vamp:value_names     ();
+    .
+plugbase:chromagram_param_bpo a  vamp:QuantizedParameter ;
+    vamp:identifier     "bpo" ;
+    dc:title            "Bands per octave" ;
+    dc:format           "" ;
+    vamp:min_value       1 ;
+    vamp:max_value       1200 ;
+    vamp:unit           "" ;
+    vamp:quantize_step   1  ;
+    vamp:default_value   12 ;
+    vamp:value_names     ();
+    .
+plugbase:chromagram_param_summation a  vamp:QuantizedParameter ;
+    vamp:identifier     "summation" ;
+    dc:title            "Chroma accumulation method" ;
+    dc:format           "" ;
+    vamp:min_value       0 ;
+    vamp:max_value       2 ;
+    vamp:unit           "" ;
+    vamp:quantize_step   1  ;
+    vamp:default_value   1 ;
+    vamp:value_names     ( "Sum magnitudes" "Sum squares" "Sum complex values");
+    .
+plugbase:chromagram_output_chroma a  vamp:DenseOutput ;
+    vamp:identifier       "chroma" ;
+    dc:title              "Chroma Power" ;
+    dc:description        """"""  ;
+    vamp:fixed_bin_count  "true" ;
+    vamp:unit             "B" ;
+    vamp:computes_signal_type  af:Chromagram ;
+    .
+plugbase:cq a   vamp:Plugin ;
+    dc:title              "Constant-Q" ;
+    vamp:name             "Constant-Q" ;
+    dc:description        """""" ;
+    foaf:maker            [ foaf:name "" ] ; # FIXME could give plugin author's URI here
+    dc:rights             """""" ;
+#   cc:license            <Place plugin license URI here and uncomment> ; 
+    vamp:identifier       "cq" ;
+    vamp:vamp_API_version vamp:api_version_2 ;
+    owl:versionInfo       "1" ;
+    vamp:input_domain     vamp:FrequencyDomain ;
+
+
+    vamp:parameter   plugbase:cq_param_minfreq ;
+    vamp:parameter   plugbase:cq_param_maxfreq ;
+    vamp:parameter   plugbase:cq_param_bpo ;
+
+    vamp:output      plugbase:cq_output_cq ;
+    .
+plugbase:cq_param_minfreq a  vamp:Parameter ;
+    vamp:identifier     "minfreq" ;
+    dc:title            "Minimum frequency cut-off" ;
+    dc:format           "Hz" ;
+    vamp:min_value       0 ;
+    vamp:max_value       48000 ;
+    vamp:unit           "Hz"  ;
+    vamp:default_value   65.4064 ;
+    vamp:value_names     ();
+    .
+plugbase:cq_param_maxfreq a  vamp:Parameter ;
+    vamp:identifier     "maxfreq" ;
+    dc:title            "Maximum frequency cut-off" ;
+    dc:format           "Hz" ;
+    vamp:min_value       0 ;
+    vamp:max_value       48000 ;
+    vamp:unit           "Hz"  ;
+    vamp:default_value   1046.5 ;
+    vamp:value_names     ();
+    .
+plugbase:cq_param_bpo a  vamp:QuantizedParameter ;
+    vamp:identifier     "bpo" ;
+    dc:title            "Bands per octave" ;
+    dc:format           "" ;
+    vamp:min_value       1 ;
+    vamp:max_value       1200 ;
+    vamp:unit           "" ;
+    vamp:quantize_step   1  ;
+    vamp:default_value   12 ;
+    vamp:value_names     ();
+    .
+plugbase:cq_output_cq a  vamp:DenseOutput ;
+    vamp:identifier       "cq" ;
+    dc:title              "Constant-Q Power" ;
+    dc:description        """"""  ;
+    vamp:fixed_bin_count  "true" ;
+    vamp:unit             "B" ;
+    vamp:computes_signal_type  af:Spectrogram ;
+    .
+plugbase:power a   vamp:Plugin ;
+    dc:title              "Power" ;
+    vamp:name             "Power" ;
+    dc:description        """""" ;
+    foaf:maker            [ foaf:name "" ] ; # FIXME could give plugin author's URI here
+    dc:rights             """""" ;
+#   cc:license            <Place plugin license URI here and uncomment> ; 
+    vamp:identifier       "power" ;
+    vamp:vamp_API_version vamp:api_version_2 ;
+    owl:versionInfo       "1" ;
+    vamp:input_domain     vamp:FrequencyDomain ;
+
+
+    vamp:parameter   plugbase:power_param_low ;
+    vamp:parameter   plugbase:power_param_minfreq ;
+    vamp:parameter   plugbase:power_param_high ;
+    vamp:parameter   plugbase:power_param_maxfreq ;
+
+    vamp:output      plugbase:power_output_power ;
+    .
+plugbase:power_param_low a  vamp:QuantizedParameter ;
+    vamp:identifier     "low" ;
+    dc:title            "Low edge" ;
+    dc:format           "" ;
+    vamp:min_value       0 ;
+    vamp:max_value       2 ;
+    vamp:unit           "" ;
+    vamp:quantize_step   1  ;
+    vamp:default_value   1 ;
+    vamp:value_names     ( "Start at DC (0Hz) bin" "Start at first non-DC bin" "Start at a set frequency");
+    .
+plugbase:power_param_minfreq a  vamp:Parameter ;
+    vamp:identifier     "minfreq" ;
+    dc:title            "Starting frequency for low edge" ;
+    dc:format           "Hz" ;
+    vamp:min_value       0 ;
+    vamp:max_value       48000 ;
+    vamp:unit           "Hz"  ;
+    vamp:default_value   65.4064 ;
+    vamp:value_names     ();
+    .
+plugbase:power_param_high a  vamp:QuantizedParameter ;
+    vamp:identifier     "high" ;
+    dc:title            "High edge" ;
+    dc:format           "" ;
+    vamp:min_value       0 ;
+    vamp:max_value       2 ;
+    vamp:unit           "" ;
+    vamp:quantize_step   1  ;
+    vamp:default_value   1 ;
+    vamp:value_names     ( "End at Nyquist (FS/2) bin" "End at last non-Nyquist bin" "End at a set frequency");
+    .
+plugbase:power_param_maxfreq a  vamp:Parameter ;
+    vamp:identifier     "maxfreq" ;
+    dc:title            "Ending frequency for high edge" ;
+    dc:format           "Hz" ;
+    vamp:min_value       0 ;
+    vamp:max_value       48000 ;
+    vamp:unit           "Hz"  ;
+    vamp:default_value   1046.5 ;
+    vamp:value_names     ();
+    .
+plugbase:power_output_power a  vamp:DenseOutput ;
+    vamp:identifier       "power" ;
+    dc:title              "Power" ;
+    dc:description        """"""  ;
+    vamp:fixed_bin_count  "true" ;
+    vamp:unit             "B" ;
+    vamp:computes_signal_type  af:Spectrogram ;
+    .
+

@@ -1,0 +1,89 @@
+Using CAMUS
+===========
+
+1. Installation
+
+To install CAMUS, simply drag the application icon onto your
+Applications folder. It should then run from this location.
+
+2. Functionality
+
+Creating a new database
+=======================
+
+1. Choose New from the File menu.
+2. Select the feature type for the database: pitch allows for
+comparison based on harmonic or pitch content; timbre based on a
+broader measure (e.g. for non-pitched instruments).
+3. Specify the maximum number of tracks you would like to store in
+the database.
+4. Specify the length, in seconds, of the longest track (e.g. if
+your longest track is 5 minutes, choose 300).
+5. Specify the slice size in milliseconds.
+6. Press Create, and then enter the filename where you would like
+to store your database. Press Save to create it. The file will have
+a .adb extension, and an associated file with a .plist extension:
+if you call your database mydb.adb, there will be mydb.plist alongside
+it. myadb.plist contains the database configuration and content
+information.
+
+Adding files to an open database
+================================
+
+1. Either click 'Add' from the CAMUS toolbar, or 'Import Audio'
+from the File menu.
+2. Select the audio files you would like to import. You can select
+multiple by holding down Alt or Shift when clicking. Audio files
+may be MP3, WAV, AIFF, or un-DRMed M4A.
+3. Click 'Open' to import.
+
+Querying the database 
+=====================
+
+1. Click 'Query' on the CAMUS toolbar.
+2. Click 'Select File' and choose the file to query against. This
+must already be present in the database.  Once loaded, Query Start
+and Query Length are populated with the maximum possible values.
+3. Select the query start point, either in vectors or seconds. This
+is the time into the track at which the query will begin.
+4. Select the length of the query, again in either vectors or seconds.
+5. If these values are invalid, the Query button will be disabled.
+Press Reset to revert to the very beginning and the length of the
+track.
+6. If you would like to only retrieve the best match for each track,
+uncheck the 'Find multiple matches within tracks' checkbox.
+7. Press query to carry out the query.
+
+Exploring the results
+=====================
+
+By default, results are sorted in ascending order of distance. As
+such, the first match will likely be the query itself. The iPos
+column specifies the position in the track in seconds, and the bars
+in the left-most column show the distance in graphical form as a
+(non-scientific) visual indicator. To play a result, either
+double-click its entry, or select it and click 'Play Result' in the
+toolbar. To stop playback, press the stop button while playing. To
+play the query and the result at the same time, select the result
+and click 'Play Both' in the toolbar.
+
+3. Behind the Scenes
+
+CAMUS makes use of audioDB (http://omras2.org/audioDB) for similarity
+matching and Sonic Annotator (http://omras2.org/SonicAnnotator) to
+extract features from audio via its Vamp plugins
+(http://vamp-plugins.org/). librdf and its associated libraries are
+bundled to handle the import of features in N3 format.
+
+4. Feedback
+
+To report bugs or feedback, please email mas01mj@gold.ac.uk.
+
+Requirements:
+
+* CAMUS requires BWToolkit, which was not included for space reasons.
+It is freely available at http://brandonwalkin.com/bwtoolkit/. The
+BWToolkitFramework.framework file should be placed into this folder
+prior to recompilation.
+* All other libraries are included, with their binaries patched to
+allow for their bundling within the CAMUS application.
