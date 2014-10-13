@@ -30,6 +30,7 @@
 #include <time.h>
 #include <limits.h>
 #include <errno.h>
+#include <unistd.h>
 #ifdef MT19937
 #include "mt19937/mt19937ar.h"
 #endif
