@@ -1,13 +1,21 @@
 Dependencies
 ------------
-
 gsoap: audioDB uses libgsoap++ for SOAP Web Services support.  This
        can be installed on most linux distributions using the package
        manager; the binary distribution will suffice.  Other systems
-       will need to install the library.
+       will need to install the library from: http://sourceforge.net/projects/gsoap2/files/latest/download
+  E.g.
+   cd $AVA_INSTALL_DIR # The directory where you installed the AVA source
+   mkdir -p .vendor
+   cd .vendor
+   wget http://sourceforge.net/projects/gsoap2/files/latest/download
+   unzip gsoap-2.8.18.zip
+   cd gsoap-2.8
+   ./configure
+   make
+   sudo make install
 
-gengetopt: audioDB uses gengetopt (as of 2007-10-23, version 2.18
-           exactly) for command-line parsing.
+gengetopt: audioDB uses gengetopt for command-line parsing.
 
 help2man: a spartan manual page is automatically generated from the
           usage text using help2man.
@@ -17,14 +25,21 @@ bash: audioDB's test suite depends on /bin/sh being bash, version 3.0
 
 gsl: the GNU Scientific Library.
 
+E.g. Linux (with apt-get package installer):
+sudo apt-get install gengetopt flex bison help2man gsl-bin
+
 Compiling
 ---------
 
 Use the following make commands to compile audioDB on your system:
 
-Linux:         make
-(Debian-derived systems, with the right versions of gengetopt, gsoap
+Linux: (Debian-derived systems, with the right versions of gengetopt, gsoap
 and help2man installed)
+
+cd $AVA_INSTALL_DIR
+make
+sudo make install
+make test # to test installation
 
 OS X or Win32: make \
   GENGETOPT=/path/to/bin/gengetopt \
